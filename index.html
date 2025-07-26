@@ -3,38 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自己紹介</title>
-    <!-- reset.css ress -->
-    <link rel="stylesheet" href="https://unpkg.com/ress/dest/ress.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <title>食堂en - アットホームな雰囲気でお待ちしております</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #faf8f3;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 0.1em;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            background-color: #d4a574;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav li {
+            margin: 0 1.5rem;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f4e4c1" width="1200" height="600"/><circle fill="%23d4a574" cx="200" cy="150" r="50" opacity="0.3"/><circle fill="%23c49464" cx="800" cy="300" r="80" opacity="0.2"/><circle fill="%23b8855a" cx="1000" cy="100" r="60" opacity="0.3"/></svg>');
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        .section {
+            padding: 3rem 0;
+            margin: 2rem 0;
+        }
+
+        .section h3 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #4a2c1a;
+            position: relative;
+        }
+
+        .section h3::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #d4a574, #c49464);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .about {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid #d4a574;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .menu-card h4 {
+            color: #4a2c1a;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .menu-item-name {
+            font-weight: 500;
+        }
+
+        .menu-item-price {
+            color: #d4a574;
+            font-weight: bold;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .info-card h4 {
+            color: #4a2c1a;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .info-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-highlight {
+            background: linear-gradient(135deg, #f4e4c1 0%, #e8d5b7 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-highlight h4 {
+            color: #4a2c1a;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-highlight .phone {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4a574;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav li {
+                margin: 0.5rem 0;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+        }
+    </style>
 </head>
-<boby class="body">
+<body>
     <header class="header">
-        <nav class="nav">
-            <ul>
-                <li><a href="#profile">プロフィール</a></li>
-                <li><a href="#hobbies">趣味</a></li>
-            </ul>
-        </nav>
-        <h1>私の自己紹介サイト</h1>
+        <div class="container">
+            <h1>食堂en</h1>
+            <p class="subtitle"></p>
+        </div>
     </header>
-    <main>
-        <section id="hobbies">
-            <h2>プロフィール</h2>
-            <p>こんにちは、私は保理江颯良です。これはわたしの自己紹介サイトです。</p>
-        </section>
-        <section id="hobbies">
-            <h2>趣味</h2>
+
+    <nav class="nav">
+        <div class="container">
             <ul>
-                <li>ゲーム</li>
-                <li>読書</li>
-                <li>模写</li>
+                <li><a href="#about">お店について</a></li>
+                <li><a href="#menu">メニュー</a></li>
+                <li><a href="#info">店舗情報</a></li>
+                <li><a href="#access">アクセス</a></li>
+                <li><a href="#introduction">自己紹介</a></li>
             </ul>
-        </section>
-    </main>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h2>ようこそ、食堂enへ</h2>
+            <p>お気軽にいらしてください。</p>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <div class="about">
+                <h3>お店について</h3>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="section">
+        <div class="container">
+            <h3>おすすめメニュー</h3>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <h4>🍽️ 自慢の料理</h4>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price">時価</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name">）</span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <h4> </h4>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <h4></h4>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="menu-item-name"></span>
+                        <span class="menu-item-price"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="info" class="section">
+        <div class="container">
+            <h3>店舗情報</h3>
+            
+            <div class="contact-highlight">
+                <h4>📞 ご予約・お問い合わせ</h4>
+                <div class="phone"></div>
+                <p>お気軽にお電話ください</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>⏰ 営業時間</h4>
+                    <p><strong></strong></p>
+                    <p></p>
+                    <p><strong></strong></p>
+                    <p></p>
+                </div>
+
+                <div class="info-card">
+                    <h4>📅 定休日</h4>
+                    <p></p>
+                    <p></p>
+                    <br>
+                    <p><small>※臨時休業の場合は店頭にてお知らせいたします</small></p>
+                </div>
+
+                <div class="info-card">
+                    <h4>🪑 席数</h4>
+                    <p><strong></strong> </p>
+                    <p><strong></strong> </p>
+                    <p><strong></strong> </p>
+                    <br>
+                    <p><small>※</small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="access" class="section">
+        <div class="container">
+            <h3>アクセス</h3>
+            <div class="about">
+                <p><strong>📍 住所</strong><br>
+                〒XXX-XXXX </p>
+                
+                <p><strong></strong><br>
+                <br>
+                </p>
+                
+                <p><strong></strong><br>
+                </p>
+                
+                <p><strong></strong><br>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="introduction" class="section">
+        <div class="container">
+            <h4>自己紹介</h4>
+            <div class="about">
+                <P><strong>名前</strong><br>私の名前は保理江颯良です。
+                </P>
+                <P><strong>趣味</strong><br>読書
+                </P>
+            </div>
+        </div>
+    </section>
     <footer class="footer">
-        <p>&copy; 2025 わたしの自己紹介サイト</p>
+        <div class="container">
+            <p>&copy; 2025 食堂en. All rights reserved.</p>
+            <p></p>
+        </div>
     </footer>
-    <script src="js?scripts.js"></script>
-</boby>
+</body>
 </html>
